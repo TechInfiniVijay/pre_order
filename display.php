@@ -14,6 +14,16 @@ include 'header.php';
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+<?php 
+$sql = "SELECT * FROM `pre_order`";
+$result = mysqli_query($conn, $sql);
+$data = mysqli_fetch_assoc($result);
+?>
+<style>
+#demoBtn{
+    background-color: <?php echo $data['btn_bg_color']; ?>;
+}
+</style>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
@@ -33,6 +43,19 @@ include 'header.php';
             </ul>
         </div>
     </nav>
+    <div class="container w-25">
+        <div class="card mt-5 mb-5">
+            <div class="card-header">
+                <h6 class="text-left">Preview</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center mt-5 mb-5">
+                    <button type="button" id="demoBtn" class="btn btn-warning">
+                        <?php echo $data['btn_value']; ?></button><br />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

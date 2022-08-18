@@ -207,7 +207,7 @@ include 'header.php';
                                         <button type="button" class="btn btn-light btn-outline-secondary">
                                             Cancel
                                         </button>
-                                        <button type="button" class="btn btn-primary" onclick="submitData()">Save</button>
+                                        <button type="button" class="btn btn-primary" onclick="submitData()" id="submitBtn">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -355,12 +355,75 @@ include 'header.php';
                 bold.style.backgroundColor = "#FFFFFF";
                 italic.style.backgroundColor = "#FFFFFF";
                 underline.style.backgroundColor = "#FFFFFF";
-                count1,count2,count3 = 0;
+                count1, count2, count3 = 0;
                 bold.setAttribute("data-click", false);
                 italic.setAttribute("data-click", false);
                 underline.setAttribute("data-click", false);
             });
+
+            // Document Ready Function Close
         });
+
+        // Ajax Call Data Save Database
+        function submitData() {
+            var fontBold = '';
+            var fontItalic = '';
+            var fontUnderline = '';
+            boldAttr = bold.getAttribute('data-click');
+            italicAttr = italic.getAttribute('data-click');
+            underlineAttr = underline.getAttribute('data-click');
+            if (boldAttr === "true") {
+                fontBold = bold.getAttribute('data');
+            }
+            if (italicAttr === "true") {
+                fontItalic = italic.getAttribute('data');
+            }
+            if (underlineAttr === "true") {
+                fontUnderline = underline.getAttribute('data');
+            }
+
+            let formData = {
+                'btn_value': btn_value.value,
+                'btn_bg_color': color.value,
+                'btn_width': width.value,
+                'btn_height': height.value,
+                'borderRadius': borderRadius.value,
+                'bordercolor': bordercolor.value,
+                'borderWidth': borderWidth.value,
+                'fontColor': fontColor.value,
+                'fontSize': fontSize.value,
+                'fontFamily': fontFamily.value,
+                'fontBold': fontBold,
+                'fontItalic': fontItalic,
+                'fontUnderline': fontUnderline
+            }
+            let token = `<?php echo $oauth_token; ?>`;
+            let shop = `<?php echo $shop ?>`;
+
+            $.ajax({
+                type: "POST",
+                url: `main.php?oauth_token=${token}&shop=${shop}`,
+                data: formData,
+                beforeSend: function() {
+                    $('#submitBtn').attr('disabled', true).html("Processing...");
+                },
+                success: function(result) {
+                    $('#submitBtn').attr('disabled', false).html("Save");
+                    alert('Button Successfully Saved.')
+                    console.log(formData)
+                    console.log(result)
+                    setTimeout(function() {
+                        location.reload(true);
+                    }, 1000);
+                },
+                error: function(errorThrown) {
+                    console.log(errorThrown);
+                    alert("There is an error with AJAX!");
+                }
+            });
+
+        }
+        // Ajax Call End
     </script>
 </body>
 
