@@ -15,6 +15,28 @@ include 'header.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 
+<!-- <?php
+        $sql = "SELECT * FROM `pre_order`";
+        $result = mysqli_query($conn, $sql);
+        $data = mysqli_fetch_assoc($result);
+        ?>
+<style>
+    .demoBtn {
+        background-color: <?php echo $data['btn_bg_color']; ?>;
+        width: <?php echo $data['btn_width'] . "px"; ?>;
+        height: <?php echo $data['btn_height'] . "px"; ?>;
+        border-radius: <?php echo $data['border_radius'] . "px"; ?>;
+        border-color: <?php echo $data['border_color']; ?>;
+        border-width: <?php echo $data['border_width'] . "px"; ?>;
+        color: <?php echo $data['font_color']; ?>;
+        font-size: <?php echo $data['font_size'] . "px"; ?>;
+        font-family: <?php echo $data['font_family']; ?>;
+        font-weight: <?php echo $data['font_bold']; ?>;
+        font-style: <?php echo $data['font_italic']; ?>;
+        text-decoration: <?php echo $data['font_underline']; ?>;
+    }
+</style> -->
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">Pre Order</a>
@@ -61,10 +83,10 @@ include 'header.php';
                                                     <label for="">Color</label>
                                                 </div>
                                                 <div class="col-md-4 col-sm-6 col-lg-4">
-                                                    <input type="color" name="color" id="color" class="form-control" placeholder="" />
+                                                    <input type="color" name="color" id="color" class="form-control" value="#ffc106" />
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-lg-4">
-                                                    <input type="text" name="" id="colortxt" class="form-control" value="#000000" readonly />
+                                                    <input type="text" name="" id="colortxt" class="form-control" value="#FFC106" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -108,10 +130,10 @@ include 'header.php';
                                                     <label for="">Border Color</label>
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-lg-4">
-                                                    <input type="color" name="bordercolor" id="bordercolor" class="form-control" placeholder="" />
+                                                    <input type="color" name="bordercolor" id="bordercolor" class="form-control" value="#ffc106" />
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-lg-4">
-                                                    <input type="text" name="" id="bordercolortxt" class="form-control" placeholder="" value="#000000" readonly />
+                                                    <input type="text" name="" id="bordercolortxt" class="form-control" placeholder="" value="#FFC106" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -133,7 +155,7 @@ include 'header.php';
                                                     <label for="">Font Color</label>
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-lg-4">
-                                                    <input type="color" name="fontColor" id="fontColor" class="form-control" placeholder="" />
+                                                    <input type="color" name="fontColor" id="fontColor" class="form-control" value="#000000" />
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-lg-4">
                                                     <input type="text" name="" id="fontColortxt" class="form-control" placeholder="" value="#000000" readonly />
@@ -216,8 +238,8 @@ include 'header.php';
                                     <div class="card-body">
                                         <h6 class="text-left">Preview</h6>
                                         <div class="text-center mt-5 mb-5">
-                                            <button type="button" id="demoBtn" class="btn btn-warning">
-                                                Pre Order</button><br />
+                                            <div id="btnHtml"><button type="button" id="demoBtn" class="btn btn-warning">Pre Order</button></div>
+                                            <br />
                                             <small>We will fullfill the order ASAP</small>
                                         </div>
                                         <div class="text-center">
@@ -307,11 +329,13 @@ include 'header.php';
                     demoBtn.style.fontWeight = this.getAttribute("data");
                     this.setAttribute("data-click", true);
                     bold.style.backgroundColor = "#5960FC";
+                    bold.style.color = "#ffffff"
                     count1 = 1;
                 } else {
                     count1 = 0;
                     demoBtn.style.fontWeight = "";
                     bold.style.backgroundColor = "#FFFFFF";
+                    bold.style.color = "#000000"
                     this.setAttribute("data-click", false);
                 }
             });
@@ -323,11 +347,13 @@ include 'header.php';
                     demoBtn.style.fontStyle = this.getAttribute("data");
                     italic.style.backgroundColor = "#5960FC";
                     this.setAttribute("data-click", true);
+                    italic.style.color = "#ffffff"
                     count2 = 1;
                 } else {
                     count2 = 0;
                     demoBtn.style.fontStyle = "";
                     italic.style.backgroundColor = "#FFFFFF";
+                    italic.style.color = "#000000"
                     this.setAttribute("data-click", false);
                 }
             });
@@ -339,12 +365,14 @@ include 'header.php';
                     demoBtn.style.textDecoration = this.getAttribute("data");
                     underline.style.backgroundColor = "#5960FC";
                     this.setAttribute("data-click", true);
+                    underline.style.color = "#ffffff"
                     count3 = 1;
                 } else {
                     count3 = 0;
                     demoBtn.style.textDecoration = "";
                     underline.style.backgroundColor = "#FFFFFF";
                     this.setAttribute("data-click", false);
+                    underline.style.color = "#000000"
                 }
             });
 
@@ -395,30 +423,35 @@ include 'header.php';
                 'fontFamily': fontFamily.value,
                 'fontBold': fontBold,
                 'fontItalic': fontItalic,
-                'fontUnderline': fontUnderline
+                'fontUnderline': fontUnderline,
+                'btn_html': document.querySelector("#btnHtml").innerHTML
             }
             let token = `<?php echo $oauth_token; ?>`;
-            let shop = `<?php echo $shop ?>`;
-
+            
             $.ajax({
                 type: "POST",
-                url: `main.php?oauth_token=${token}&shop=${shop}`,
+                url: `main.php?oauth_token=${token}`,
                 data: formData,
                 beforeSend: function() {
+                    $('#submitBtn').removeClass('btn-primary')
+                    $('#submitBtn').addClass('btn-warning')
                     $('#submitBtn').attr('disabled', true).html("Processing...");
                 },
                 success: function(result) {
+                    $('#submitBtn').removeClass('btn-warning')
+                    $('#submitBtn').addClass('btn-primary')
                     $('#submitBtn').attr('disabled', false).html("Save");
-                    alert('Button Successfully Saved.')
+                    // alert('Button Successfully Saved.')
                     console.log(formData)
                     console.log(result)
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
+                    
                 },
                 error: function(errorThrown) {
                     console.log(errorThrown);
                     alert("There is an error with AJAX!");
+                    setTimeout(function() {
+                        location.reload(true);
+                    }, 1000);
                 }
             });
 
