@@ -427,7 +427,7 @@ include 'header.php';
                 'btn_html': document.querySelector("#btnHtml").innerHTML
             }
             let token = `<?php echo $oauth_token; ?>`;
-            
+
             $.ajax({
                 type: "POST",
                 url: `main.php?oauth_token=${token}`,
@@ -442,16 +442,15 @@ include 'header.php';
                     $('#submitBtn').addClass('btn-primary')
                     $('#submitBtn').attr('disabled', false).html("Save");
                     // alert('Button Successfully Saved.')
-                    console.log(formData)
+                    // console.log(formData)
                     console.log(result)
-                    
                 },
                 error: function(errorThrown) {
                     console.log(errorThrown);
                     alert("There is an error with AJAX!");
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
+                    // setTimeout(function() {
+                    //     location.reload(true);
+                    // }, 1000);
                 }
             });
 

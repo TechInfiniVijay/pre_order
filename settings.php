@@ -45,7 +45,7 @@ if (mysqli_query($conn, $create_table_sql)) {
 }
 
 $title_stt = '0';
-$heading_title = 'Special Ofer : Buy a set and pay less with free shipping';
+$heading_title = 'Special Offer : Buy a set and pay less with free shipping';
 
 $shopify = shopify\client($shop, SHOPIFY_APP_API_KEY , $access_token);
 
