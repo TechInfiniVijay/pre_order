@@ -238,7 +238,7 @@ include 'header.php';
                                     <div class="card-body">
                                         <h6 class="text-left">Preview</h6>
                                         <div class="text-center mt-5 mb-5">
-                                            <div id="btnHtml"><button type="button" id="demoBtn" class="btn btn-warning">Pre Order</button></div>
+                                            <div id="btnHtml"><button type="button" id="demoBtn" class="btn btn-primary">Pre Order</button></div>
                                             <br />
                                             <small>We will fullfill the order ASAP</small>
                                         </div>

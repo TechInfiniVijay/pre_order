@@ -2,7 +2,7 @@
 $page = "apis";
 include 'header.php';
 require __DIR__ . '/conf.php';
-
+header("Content-Type:application/json");
 function getBtnData($conn){   
     $sql = "SELECT * FROM `pre_order`";
     $result = mysqli_query($conn, $sql);

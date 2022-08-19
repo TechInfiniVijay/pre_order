@@ -65,9 +65,9 @@ $sql = "SELECT * FROM $config_table_name WHERE shop ='$shop'";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) <= 0) {
- 	$sql = "INSERT INTO $config_table_name VALUES ('','$shop','$store_id','$store_email','$store_owner','$install_date','$access_token','$title_stt','$heading_title','$status')";
+ 	$sql = "INSERT INTO $config_table_name(`shop`,`store_id`,`store_email`,`store_owner`,`install_date`,`oauth_token`,`title_status`,`header_title`,`status`) VALUES('$shop','$store_id','$store_email','$store_owner','$install_date','$access_token','$title_stt','$heading_title','$status')";
 } else {
-	$sql = "UPDATE  $config_table_name SET oauth_token = '$access_token',status = '$status' WHERE shop ='$shop' ";
+	$sql = "UPDATE  $config_table_name SET `oauth_token` = '$access_token',status = '$status' WHERE `shop` ='$shop' ";
 }
 mysqli_query($conn, $sql);
 }
