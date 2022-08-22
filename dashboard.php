@@ -447,7 +447,7 @@ include 'header.php';
                 },
                 error: function(errorThrown) {
                     console.log(errorThrown);
-                    alert("There is an error with AJAX!");
+                    // alert("There is an error with AJAX!");
                     // setTimeout(function() {
                     //     location.reload(true);
                     // }, 1000);

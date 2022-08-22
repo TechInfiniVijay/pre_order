@@ -1,8 +1,6 @@
 <?php
 $page = "getToken";
-// header("Content-Type:application/json");
-// header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header("Access-Control-Allow-Headers","Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 $conn = mysqli_connect('localhost', 'root', '12345', 'vijay_preorder_app');
@@ -10,7 +8,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if (!empty($_GET['shop'])) {
+if (isset($_GET['shop'])) {
     $shop = $_GET['shop'];
     getToken($conn, $shop);
 } else {
@@ -24,4 +22,3 @@ function getToken($conn, $shop)
     $data = mysqli_fetch_assoc($result);
     echo json_encode($data);
 }
-?>

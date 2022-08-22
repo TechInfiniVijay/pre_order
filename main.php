@@ -3,7 +3,8 @@ $page = "main";
 include 'header.php';
 require __DIR__ . '/conf.php';
 
-if (!empty($_GET['oauth_token'])) {
+
+if (!empty($_GET['oauth_token']) && isset($_GET['oauth_token'])) {
 
     $btn_value = $_POST['btn_value'];
     $btn_bg_color = $_POST['btn_bg_color'];
@@ -32,6 +33,8 @@ if (!empty($_GET['oauth_token'])) {
     }
     mysqli_query($conn, $sql);
     echo "Button Saved.";
+}else{
+    echo "Error";
 }
 
 
